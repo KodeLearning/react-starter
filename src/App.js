@@ -1,5 +1,7 @@
+import AdvertsPage from './Pages/adverts/AdvertsPage'
+
 function App() {
-  return <div className="App"></div>
+  return <AdvertsPage />
 }
 
 export default App
