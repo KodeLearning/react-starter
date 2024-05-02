@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { login } from './service'
+import Layout from '../../Components/layout/Layout'
 
 export default function LoginPage({ onLogin }) {
   const [formValues, setFormValues] = useState({
@@ -30,7 +31,7 @@ export default function LoginPage({ onLogin }) {
 
   const { email, password, rememberPassword } = formValues
   return (
-    <div>
+    <Layout>
       <h1>Log in to Wallapoop</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -56,6 +57,6 @@ export default function LoginPage({ onLogin }) {
         Remember password
         <button type="submit">Log in</button>
       </form>
-    </div>
+    </Layout>
   )
 }

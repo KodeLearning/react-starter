@@ -2,30 +2,24 @@ import { useEffect, useState } from 'react'
 import styles from './AdvertsPage.module.css'
 
 import { getAdverts } from './service'
-import { logout } from '../auth/service'
+import Layout from '../../Components/layout/Layout'
 
-function AdvertsPage({ onLogout }) {
+function AdvertsPage(props) {
   const [adverts, setAdverts] = useState([])
 
   useEffect(() => {
     getAdverts().then((adverts) => setAdverts(adverts))
   }, [])
 
-  const handleLogout = () => {
-    logout()
-    onLogout()
-  }
-
   return (
-    <div>
-      <button onClick={handleLogout}>Logout</button>
+    <Layout title="Advert" {...props}>
       <div className={styles.adverts}>
         <ul>
           {adverts &&
-            adverts.map((advert) => <li key={advert.id}>{advert.title}</li>)}
+            adverts.map((advert) => <li key={advert.id}>{advert.name}</li>)}
         </ul>
       </div>
-    </div>
+    </Layout>
   )
 }
 
