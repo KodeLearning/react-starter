@@ -5,6 +5,7 @@ export default function LoginPage({ onLogin }) {
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
+    rememberMe: false,
   })
 
   const handleChange = (event) => {
@@ -17,15 +18,17 @@ export default function LoginPage({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const response = await login({
-      email,
-      password,
-    })
+    const response = await login(
+      {
+        email,
+        password,
+      },
+      rememberPassword
+    )
     onLogin(true)
   }
 
-  const { email, password } = formValues
-  const buttonDisabled = !email || !password
+  const { email, password, rememberPassword } = formValues
   return (
     <div>
       <h1>Log in to Wallapoop</h1>
@@ -44,6 +47,13 @@ export default function LoginPage({ onLogin }) {
           onChange={handleChange}
           value={password}
         />
+        <input
+          type="checkbox"
+          value="1"
+          name="rememberPassword"
+          onChange={handleChange}
+        />{' '}
+        Remember password
         <button type="submit">Log in</button>
       </form>
     </div>
