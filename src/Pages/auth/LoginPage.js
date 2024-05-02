@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
+import { useAuth } from './context'
 import { login } from './service'
 import Layout from '../../Components/layout/Layout'
-import { AuthContext } from './context'
 
 export default function LoginPage() {
-  const { onLogin } = useContext(AuthContext)
+  const { onLogin } = useAuth()
 
   const [formValues, setFormValues] = useState({
     email: '',

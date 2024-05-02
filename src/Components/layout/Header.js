@@ -1,10 +1,11 @@
-import { useContext } from 'react'
-import { logout } from '../../Pages/auth/service'
 import { ReactComponent as Icon } from '../../assets/logo.svg'
-import { AuthContext } from '../../Pages/auth/context'
+
+import { useAuth } from '../../Pages/auth/context'
+import { logout } from '../../Pages/auth/service'
 
 export default function Header() {
-  const { isLogged, onLogout } = useContext(AuthContext)
+  const { isLogged, onLogout } = useAuth()
+
   const handleLogout = () => {
     logout()
     onLogout()
