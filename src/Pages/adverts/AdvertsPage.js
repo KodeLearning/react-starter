@@ -4,7 +4,7 @@ import styles from './AdvertsPage.module.css'
 import { getAdverts } from './service'
 import Layout from '../../Components/layout/Layout'
 
-function AdvertsPage(props) {
+function AdvertsPage() {
   const [adverts, setAdverts] = useState([])
 
   useEffect(() => {
@@ -12,7 +12,7 @@ function AdvertsPage(props) {
   }, [])
 
   return (
-    <Layout title="Advert" {...props}>
+    <Layout title="Advert">
       <div className={styles.adverts}>
         <ul>
           {adverts &&

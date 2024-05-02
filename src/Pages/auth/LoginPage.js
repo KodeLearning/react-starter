@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { login } from './service'
 import Layout from '../../Components/layout/Layout'
+import { AuthContext } from './context'
 
-export default function LoginPage({ onLogin }) {
+export default function LoginPage() {
+  const { onLogin } = useContext(AuthContext)
+
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
