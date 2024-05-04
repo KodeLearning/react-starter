@@ -2,13 +2,14 @@
 
 ## LoginPage
 
-- Formulario con inputs para introducir email y password.
-- Checkbox para recordar contraseña.
+- [Hecho] Formulario con inputs para introducir email y password.
+- [Hecho] Checkbox para recordar contraseña.
 
 ## AdvertsPage
 
-- Listado de anuncios.
-  -- Nombre, precio, compra/venta y tags.
+[Hecho] - Listado de anuncios.
+-- Nombre, precio, compra/venta y tags.
+
 - Mostrar si no hay anuncios con enlace a crear uno.
 - Enlace al detalle del anuncio.
 - Filtro de anuncios.
