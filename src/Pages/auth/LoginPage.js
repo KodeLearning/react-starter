@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from './context'
 import { login } from './service'
 import Layout from '../../Components/layout/Layout'
 import Button from '../../Components/form/Button'
 
 export default function LoginPage() {
+  const location = useLocation()
+  const navigate = useNavigate()
   const { onLogin } = useAuth()
 
   const [formValues, setFormValues] = useState({
@@ -31,6 +34,9 @@ export default function LoginPage() {
       rememberPassword
     )
     onLogin(true)
+
+    const to = location.state?.from || '/'
+    navigate(to)
   }
 
   const { email, password, rememberPassword } = formValues
