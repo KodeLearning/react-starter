@@ -1,3 +1,4 @@
+import { Link, NavLink } from 'react-router-dom'
 import { ReactComponent as Icon } from '../../assets/logo.svg'
 
 import { useAuth } from '../../Pages/auth/context'
@@ -14,15 +15,23 @@ export default function Header() {
   return (
     <header>
       <div>
-        <Icon width={32} height={32} />
+        <Link to="/">
+          <Icon width={32} height={32} />
+        </Link>
       </div>
-      <nav>
+      <div>
         {isLogged ? (
-          <button onClick={handleLogout}>Logout</button>
+          <nav className="header-nav">
+            <button onClick={handleLogout}>Logout</button>
+            <NavLink to="/adverts/new">New Advert</NavLink> |
+            <NavLink to="/adverts" end>
+              Latest adverts
+            </NavLink>
+          </nav>
         ) : (
           <button>Login</button>
         )}
-      </nav>
+      </div>
     </header>
   )
 }
