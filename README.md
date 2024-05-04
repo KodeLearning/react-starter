@@ -1,3 +1,36 @@
+# TODO List
+
+## LoginPage
+
+- Formulario con inputs para introducir email y password.
+- Checkbox para recordar contraseña.
+
+## AdvertsPage
+
+- Listado de anuncios.
+  -- Nombre, precio, compra/venta y tags.
+- Mostrar si no hay anuncios con enlace a crear uno.
+- Enlace al detalle del anuncio.
+- Filtro de anuncios.
+  -- Filtrar por nombre.
+  -- Filtrar por compra, venta o todos.
+
+## AdvertPage
+
+- Detalle del anuncio con la foto del anuncio o placeholder si no tiene.
+- Si no existe, redirigir a NotFoundPage.
+- Botón para borrar el anuncio con conformación y redirección.
+
+## NewAdvertPage
+
+- Inputs necesarios
+  -- Nombre *Requerido
+  -- Compra / Venta *Requerido
+  -- Tags *Requerido
+  -- Precio *Requerido
+  -- Foto \*Opcional
+- Redireccionar a la pagina del anuncio.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
