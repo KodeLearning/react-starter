@@ -26,7 +26,7 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const response = await login(
+    await login(
       {
         email,
         password,
