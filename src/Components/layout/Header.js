@@ -3,6 +3,7 @@ import { ReactComponent as Icon } from '../../assets/logo.svg'
 
 import { useAuth } from '../../Pages/auth/context'
 import { logout } from '../../Pages/auth/service'
+import AuthButton from '../../Pages/auth/components/AuthButton'
 
 export default function Header() {
   const { isLogged, onLogout } = useAuth()
@@ -20,17 +21,13 @@ export default function Header() {
         </Link>
       </div>
       <div>
-        {isLogged ? (
-          <nav className="header-nav">
-            <button onClick={handleLogout}>Logout</button>
-            <NavLink to="/adverts/new">New Advert</NavLink> |
-            <NavLink to="/adverts" end>
-              Latest adverts
-            </NavLink>
-          </nav>
-        ) : (
-          <button>Login</button>
-        )}
+        <nav className="header-nav">
+          <NavLink to="/adverts/new">New Advert</NavLink> |
+          <NavLink to="/adverts" end>
+            Latest adverts
+          </NavLink>
+        </nav>
+        <AuthButton className="auth-button"></AuthButton>
       </div>
     </header>
   )

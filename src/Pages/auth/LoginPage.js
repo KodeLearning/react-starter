@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAuth } from './context'
 import { login } from './service'
 import Layout from '../../Components/layout/Layout'
+import Button from '../../Components/form/Button'
 
 export default function LoginPage() {
   const { onLogin } = useAuth()
@@ -58,7 +59,9 @@ export default function LoginPage() {
           onChange={handleChange}
         />{' '}
         Remember password
-        <button type="submit">Log in</button>
+        <Button type="submit" $variant="primary">
+          Log in
+        </Button>
       </form>
     </Layout>
   )

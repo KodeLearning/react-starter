@@ -1,6 +1,6 @@
-import styled from 'styled-componenets'
+import styled from 'styled-components'
 
-const accentColor = ''
+const accentColor = 'red'
 
 const Button = styled.button`
   align-items: center;
@@ -23,7 +23,7 @@ const Button = styled.button`
   transition: background-color 0.2s;
 
   &:hover {
-    background-color: ${(props) => (props.$primary ? '' : '')};
+    background-color: ${(props) => (props.$primary ? 'blue' : 'green')};
   }
 `
 
