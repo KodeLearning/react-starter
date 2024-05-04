@@ -1,18 +1,18 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate, Outlet } from 'react-router-dom'
 import AdvertsPage from './Pages/adverts/AdvertsPage'
 import NewAdvertPage from './Pages/adverts/NewAdvertPage'
 import LoginPage from './Pages/auth/LoginPage'
-import { useAuth } from './Pages/auth/context'
-import { Navigate } from 'react-router-dom'
+import AdvertPage from './Pages/adverts/AdvertPage'
 
 function App() {
-  const { isLogged } = useAuth()
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/adverts" element={<AdvertsPage />} />
-      <Route path="/adverts/new" element={<NewAdvertPage />} />
-      <Route path="/adverts/:advertId" element={<div>Advert detail</div>} />
+      <Route path="/adverts" element={<Outlet />}>
+        <Route index element={<AdvertsPage />} />
+        <Route path=":advertId" element={<AdvertPage />} />
+        <Route path="new" element={<NewAdvertPage />} />
+      </Route>
 
       <Route path="/" element={<Navigate to="/adverts" />} />
       <Route path="/404" element={<div>404 | Not found</div>} />
