@@ -3,6 +3,7 @@ import styles from './AdvertsPage.module.css'
 
 import { getAdverts } from './service'
 import Layout from '../../Components/layout/Layout'
+import { Link } from 'react-router-dom'
 
 function AdvertsPage() {
   const [adverts, setAdverts] = useState([])
@@ -17,7 +18,16 @@ function AdvertsPage() {
         {adverts.length ? (
           <ul>
             {adverts.map(({ id, ...advert }) => (
-              <li key={advert.id}>{advert.name}</li>
+              <li key={advert.id}>
+                <Link to={`/adverts/${id}`}>{advert.name}</Link>
+                {advert.sale ? <span>Venta</span> : <span>Compra</span>}
+                <div>
+                  {advert.price}€ -{' '}
+                  {advert.tags.map((tag) => (
+                    <div>{tag}</div>
+                  ))}
+                </div>
+              </li>
             ))}
           </ul>
         ) : (
