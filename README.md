@@ -10,8 +10,9 @@
 [Hecho] - Listado de anuncios.
 [Hecho] -- Nombre, precio, compra/venta y tags.
 
-- Mostrar si no hay anuncios con enlace a crear uno.
-  [Hecho] - Enlace al detalle del anuncio.
+[Hecho] - Mostrar si no hay anuncios con enlace a crear uno.
+[Hecho] - Enlace al detalle del anuncio.
+
 - Filtro de anuncios.
   -- Filtrar por nombre.
   -- Filtrar por compra, venta o todos.
@@ -20,8 +21,8 @@
 
 [Hecho] - Detalle del anuncio con la foto del anuncio o placeholder si no tiene.
 
-- Si no existe, redirigir a NotFoundPage.
-- Botón para borrar el anuncio con confirmación y redirección.
+[Hecho] - Si no existe, redirigir a NotFoundPage.
+[Hecho] - Botón para borrar el anuncio con confirmación y redirección.
 
 ## NewAdvertPage
 

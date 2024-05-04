@@ -15,31 +15,45 @@ export default function LoginPage() {
     password: '',
     rememberMe: false,
   })
+  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleChange = (event) => {
     setFormValues((currentFormValues) => ({
       ...currentFormValues,
       [event.target.name]: event.target.value,
     }))
+
+    resetError()
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    await login(
-      {
-        email,
-        password,
-      },
-      rememberPassword
-    )
-    onLogin(true)
+    try {
+      setIsLoading(true)
+      await login(
+        {
+          email,
+          password,
+        },
+        rememberPassword
+      )
+      setIsLoading(false)
 
-    const to = location.state?.from || '/'
-    navigate(to)
+      onLogin(true)
+      const to = location.state?.from || '/'
+      navigate(to)
+    } catch (error) {
+      setIsLoading(false)
+      setError(error)
+    }
   }
 
+  const resetError = () => setError(null)
+
   const { email, password, rememberPassword } = formValues
+  const emptyForm = !email || !password || isLoading
   return (
     <Layout>
       <h1>Log in to Wallapoop</h1>
@@ -65,10 +79,12 @@ export default function LoginPage() {
           onChange={handleChange}
         />{' '}
         Remember password
-        <Button type="submit" $variant="primary">
+        <Button type="submit" $variant="primary" disabled={emptyForm}>
           Log in
         </Button>
       </form>
+
+      {error && <div className="loginPage-error">{error.message}</div>}
     </Layout>
   )
 }

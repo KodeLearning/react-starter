@@ -1,23 +1,44 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Layout from '../../Components/layout/Layout'
-import { getAdvert } from './service'
+import { getAdvert, removeAdvert } from './service'
+import Button from '../../Components/form/Button'
 
 function AdvertPage() {
   const params = useParams()
+  const navigate = useNavigate()
 
   const [advert, setAdvert] = useState(null)
 
   useEffect(() => {
     async function getAdvertsFromService() {
-      const advert = await getAdvert(params.advertId)
-      setAdvert(advert)
+      try {
+        const advert = await getAdvert(params.advertId)
+        setAdvert(advert)
+      } catch (error) {
+        if (error.status === 404) {
+          navigate('/404')
+        }
+      }
     }
 
     getAdvertsFromService()
-  }, [params.advertId])
+  }, [params.advertId, navigate])
 
-  return <Layout title="Tweet detail">{advert && advert.name}</Layout>
+  function handleRemoveAdvert() {
+    removeAdvert(params.advertId)
+
+    navigate('/')
+  }
+
+  return (
+    <Layout title="Tweet detail">
+      {advert && advert.name}{' '}
+      <Button $variant="primary" onClick={handleRemoveAdvert}>
+        Delete Advert
+      </Button>
+    </Layout>
+  )
 }
 
 export default AdvertPage

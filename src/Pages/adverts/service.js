@@ -7,7 +7,11 @@ export const getAdverts = () => {
 }
 
 export const getAdvert = (advertId) => {
-  console.log(advertId)
   const url = `${advertsUrl}/${advertId}`
   return client.get(url)
+}
+
+export const removeAdvert = (advertId) => {
+  const url = `${advertsUrl}/${advertId}`
+  return client.delete(url)
 }
