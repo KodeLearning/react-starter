@@ -18,9 +18,10 @@
 
 ## AdvertPage
 
-- Detalle del anuncio con la foto del anuncio o placeholder si no tiene.
+[Hecho] - Detalle del anuncio con la foto del anuncio o placeholder si no tiene.
+
 - Si no existe, redirigir a NotFoundPage.
-- Botón para borrar el anuncio con conformación y redirección.
+- Botón para borrar el anuncio con confirmación y redirección.
 
 ## NewAdvertPage
 
