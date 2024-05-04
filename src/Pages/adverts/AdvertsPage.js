@@ -14,10 +14,15 @@ function AdvertsPage() {
   return (
     <Layout title="Advert">
       <div className={styles.adverts}>
-        <ul>
-          {adverts &&
-            adverts.map((advert) => <li key={advert.id}>{advert.name}</li>)}
-        </ul>
+        {adverts.length ? (
+          <ul>
+            {adverts.map(({ id, ...advert }) => (
+              <li key={advert.id}>{advert.name}</li>
+            ))}
+          </ul>
+        ) : (
+          <div>Empty</div>
+        )}
       </div>
     </Layout>
   )
