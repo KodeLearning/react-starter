@@ -12,7 +12,11 @@ function AuthButton({ className }) {
   }
 
   return isLogged ? (
-    <Button onClick={handleLogoutClick} className={className}>
+    <Button
+      onClick={handleLogoutClick}
+      $variant="primary"
+      className={className}
+    >
       Logout
     </Button>
   ) : (

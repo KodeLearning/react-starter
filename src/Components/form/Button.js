@@ -1,29 +1,27 @@
 import styled from 'styled-components'
 
-const accentColor = 'red'
+const accentColor = '#ff343f'
 
 const Button = styled.button`
-  align-items: center;
-  background-color: ${(props) => (props.$primary ? accentColor : 'white')};
-  border-radius: 50%;
-  border-style: solid;
-  border-width: 1px;
-  border-color: ${accentColor};
-  color: ${(props) => (props.$primary ? 'white' : accentColor)};
+  text-align: center;
+  background: ${(props) => (props.$primary ? 'white' : accentColor)};
+  border-radius: 30px;
+
+  color: ${(props) => (props.$primary ? accentColor : 'white')};
   cursor: pointer;
-  display: inline-flex;
   font: inherit;
-  font-weight: bold;
+  font-weight: 500;
   min-height: 36px;
-  justify-content: center;
-  min-width: 72px;
+  min-width: 100px;
   outline-style: none;
-  opacity: ${(props) => (props.disabled ? 'none' : 'auto')};
+  opacity: ${(props) => (props.disabled ? 0.2 : 1)};
   text-decoration: none;
-  transition: background-color 0.2s;
+  transition: all 0.3s ease-out 0s;
+  border: 0;
 
   &:hover {
-    background-color: ${(props) => (props.$primary ? 'blue' : 'green')};
+    box-shadow: rgb(255, 52, 63) 2px 2px 20px 0px;
+    transition: all 0.3s ease-in 0s;
   }
 `
 
