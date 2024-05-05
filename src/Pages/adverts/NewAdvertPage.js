@@ -1,23 +1,33 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import Layout from '../../Components/layout/Layout'
 import Button from '../../Components/form/Button'
 import { useNavigate } from 'react-router-dom'
 import { createAdvert } from './service'
 
+import styles from './NewAdvertPage.module.css'
+
 export default function NewAdvertPage() {
   const navigate = useNavigate()
+  const cbSale = useRef(null)
+  const photoRef = useRef(null)
+  const [error, setError] = useState(null)
   const [formValues, setFormValues] = useState({
     name: '',
     price: 0,
     sale: false,
     tags: [],
+    photo: null,
   })
 
   const handleChange = (event) => {
+    handleSale()
+    console.log('a', photoRef.current.files[0])
     setFormValues((currentFormValues) => ({
       ...currentFormValues,
-      [currentFormValues.isSelling]: !!event.target.value,
       [event.target.name]: event.target.value,
+      [currentFormValues.photo]: photoRef.current.files[0]
+        ? photoRef.current.files[0].name
+        : null,
     }))
   }
 
@@ -30,29 +40,41 @@ export default function NewAdvertPage() {
         price,
         sale,
         tags,
+        photo,
       })
 
       navigate(`/adverts/${createdAdvert.id}`)
     } catch (error) {
+      setError(error)
       if (error.status === 401) {
         navigate('/login')
       }
     }
   }
 
-  const { name, price, sale, tags } = formValues
-  const emptyForm = !name || !price || !sale || !tags
+  const handleSale = () => {
+    if (cbSale.current.checked) {
+      cbSale.current.value = true
+    } else {
+      cbSale.current.value = false
+    }
+  }
+
+  const { name, price, sale, tags, photo } = formValues
+  const emptyForm = !name || !price || !tags
 
   return (
     <Layout title="New Advert">
       <div className="newAdvertPage">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} enctype="multipart/form-data">
           <div>
             <input
               type="text"
               name="name"
               onChange={handleChange}
               value={name}
+              placeholder="Advert title"
+              required
             />
           </div>
           <div>
@@ -61,26 +83,41 @@ export default function NewAdvertPage() {
               name="price"
               onChange={handleChange}
               value={price}
+              placeholder="Advert price"
+              required
             />
           </div>
-          <div>
-            <input type="radio" name="sale" value="1" onChange={handleChange} />{' '}
-            Venta
+          <div className={styles.customCheckBoxHolder}>
             <input
-              type="radio"
+              type="checkbox"
+              id="sale"
+              className={styles.customCheckBoxInput}
               name="sale"
-              value="0"
+              ref={cbSale}
               onChange={handleChange}
-            />{' '}
-            Compra
+            />
+            <label htmlFor="sale" className={styles.customCheckBoxWrapper}>
+              <div className={styles.customCheckBox}>
+                <div className={styles.inner}>For sell</div>
+              </div>
+            </label>
           </div>
           <div>
-            <select multiple name="tags" onClick={handleChange}>
+            <select multiple name="tags" onChange={handleChange} required>
               <option value="lifestyle">Lifestyle</option>
               <option value="mobile">Mobile</option>
               <option value="motor">Motor</option>
               <option value="work">Work</option>
             </select>
+          </div>
+          <div>
+            <input
+              type="file"
+              name="photo"
+              onChange={handleChange}
+              ref={photoRef}
+              accept="image/png, image/jpeg"
+            />
           </div>
           <div>
             <Button type="submit" disabled={emptyForm}>
@@ -89,6 +126,7 @@ export default function NewAdvertPage() {
           </div>
         </form>
       </div>
+      {error && <div>{error.message}</div>}
     </Layout>
   )
 }
