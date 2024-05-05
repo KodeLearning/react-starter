@@ -4,16 +4,11 @@ import styles from './AdvertsPage.module.css'
 import { getAdverts } from './service'
 import Layout from '../../Components/layout/Layout'
 import { Link } from 'react-router-dom'
+import Placeholder from './components/Placeholder'
 
 function AdvertsPage() {
   const [adverts, setAdverts] = useState([])
   const advertItem = useRef(null)
-
-  const handleItemLink = () => {
-    // Se que no deberia hacerse esto
-    // Es por darle uso al Ref, no se me ocurrió nada más 😅
-    window.location.href = advertItem.current.href
-  }
 
   useEffect(() => {
     getAdverts().then((adverts) => setAdverts(adverts))
@@ -24,16 +19,9 @@ function AdvertsPage() {
       <div className={styles.adverts}>
         {adverts.length ? (
           adverts.map(({ id, ...advert }) => (
-            <div
-              className={styles.advert_item}
-              key={advert.id}
-              onClick={handleItemLink}
-            >
+            <div className={styles.advert_item} key={id}>
               <div className={styles.advert_content}>
-                <img
-                  src="https://mtek3d.com/wp-content/uploads/2018/01/image-placeholder-500x500.jpg"
-                  alt="placeholder"
-                />
+                <Placeholder photo={advert.photo} />
                 <Link to={`/adverts/${id}`} ref={advertItem}>
                   {advert.name}
                 </Link>

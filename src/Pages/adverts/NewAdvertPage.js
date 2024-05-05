@@ -21,13 +21,9 @@ export default function NewAdvertPage() {
 
   const handleChange = (event) => {
     handleSale()
-    console.log('a', photoRef.current.files[0])
     setFormValues((currentFormValues) => ({
       ...currentFormValues,
       [event.target.name]: event.target.value,
-      [currentFormValues.photo]: photoRef.current.files[0]
-        ? photoRef.current.files[0].name
-        : null,
     }))
   }
 
@@ -40,7 +36,7 @@ export default function NewAdvertPage() {
         price,
         sale,
         tags,
-        photo,
+        photo: photoRef.current.files[0],
       })
 
       navigate(`/adverts/${createdAdvert.id}`)
@@ -60,13 +56,13 @@ export default function NewAdvertPage() {
     }
   }
 
-  const { name, price, sale, tags, photo } = formValues
+  const { name, price, sale, tags } = formValues
   const emptyForm = !name || !price || !tags
 
   return (
     <Layout title="New Advert">
       <div className="newAdvertPage">
-        <form onSubmit={handleSubmit} enctype="multipart/form-data">
+        <form onSubmit={handleSubmit}>
           <div>
             <input
               type="text"
@@ -75,7 +71,7 @@ export default function NewAdvertPage() {
               value={name}
               placeholder="Advert title"
               required
-            />
+            />{' '}
           </div>
           <div>
             <input

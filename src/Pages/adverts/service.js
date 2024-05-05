@@ -12,9 +12,10 @@ export const getAdvert = (advertId) => {
 }
 
 export const createAdvert = (data) => {
-  console.log(data)
   return client.post(advertsUrl, data, {
-    'Content-Type': 'multipart/form-data',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   })
 }
 
