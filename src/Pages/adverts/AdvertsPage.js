@@ -90,7 +90,6 @@ function AdvertsPage() {
               }
 
               if (typeFilter !== 'all') {
-                console.log(typeFilter)
                 if (typeFilter === 'sales' && !advert.sale) {
                   return false
                 }
