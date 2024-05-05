@@ -4,13 +4,15 @@ import Layout from '../../Components/layout/Layout'
 import { getAdvert, removeAdvert } from './service'
 import Button from '../../Components/form/Button'
 
-import './AdvertPage.module.css'
+import styles from './AdvertPage.module.css'
 
 function AdvertPage() {
   const params = useParams()
   const navigate = useNavigate()
 
   const [advert, setAdvert] = useState(null)
+  const [removeButton, setRemoveButton] = useState('Delete Advert')
+  const [removeConfirmed, setRemoveConfirmed] = useState(false)
 
   useEffect(() => {
     async function getAdvertsFromService() {
@@ -33,7 +35,10 @@ function AdvertPage() {
     navigate('/')
   }
 
-  function handleRemoveConfirmation() {}
+  function handleRemoveConfirmation() {
+    setRemoveButton('Are you sure?')
+    setRemoveConfirmed(true)
+  }
 
   return (
     <Layout title="Advert detail">
@@ -44,13 +49,22 @@ function AdvertPage() {
           <h3>
             {advert.sale ? 'Selling for' : 'Willing to pay'} {advert.price}€
           </h3>
-          <div>{advert.tags.map((tag) => tag)}</div>
+          <div className={styles.tags}>
+            {advert.tags.map((tag) => (
+              <div>{tag}</div>
+            ))}
+          </div>
         </div>
       ) : (
         ''
       )}
-      <Button $variant="primary" onClick={handleRemoveAdvert}>
-        Delete Advert
+      <Button
+        $variant="primary"
+        onClick={
+          removeConfirmed ? handleRemoveAdvert : handleRemoveConfirmation
+        }
+      >
+        {removeButton}
       </Button>
     </Layout>
   )
