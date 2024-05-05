@@ -19,11 +19,15 @@ export default function NewAdvertPage() {
     photo: null,
   })
 
-  const handleChange = (event) => {
+  const handleChange = (e) => {
     handleSale()
+
     setFormValues((currentFormValues) => ({
       ...currentFormValues,
-      [event.target.name]: event.target.value,
+      [e.target.name]:
+        e.target.name === 'tags'
+          ? Array.from(e.target.selectedOptions, (option) => option.value)
+          : e.target.value,
     }))
   }
 
