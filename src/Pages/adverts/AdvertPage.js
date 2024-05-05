@@ -4,6 +4,8 @@ import Layout from '../../Components/layout/Layout'
 import { getAdvert, removeAdvert } from './service'
 import Button from '../../Components/form/Button'
 
+import './AdvertPage.module.css'
+
 function AdvertPage() {
   const params = useParams()
   const navigate = useNavigate()
@@ -31,9 +33,22 @@ function AdvertPage() {
     navigate('/')
   }
 
+  function handleRemoveConfirmation() {}
+
   return (
-    <Layout title="Tweet detail">
-      {advert && advert.name}{' '}
+    <Layout title="Advert detail">
+      {advert ? (
+        <div>
+          {advert.photo && <img src={advert.photo} alt="item" />}
+          <h1>{advert.name}</h1>
+          <h3>
+            {advert.sale ? 'Selling for' : 'Willing to pay'} {advert.price}€
+          </h3>
+          <div>{advert.tags.map((tag) => tag)}</div>
+        </div>
+      ) : (
+        ''
+      )}
       <Button $variant="primary" onClick={handleRemoveAdvert}>
         Delete Advert
       </Button>

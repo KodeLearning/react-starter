@@ -61,7 +61,6 @@ input[type='number'] {
   transform: translateY(-2px);
 }
 
-/* Multiple Checkboxes can be chained together for a radio input */
 .customCheckBoxWrapper:first-of-type .customCheckBox {
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
