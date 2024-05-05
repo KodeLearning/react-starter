@@ -7,15 +7,15 @@
 
 ## AdvertsPage
 
-- [Hecho]Listado de anuncios.
+- [Hecho] Listado de anuncios.
   -- [Hecho] Nombre, precio, compra/venta y tags.
 
-- [Hecho]Mostrar si no hay anuncios con enlace a crear uno.
-- [Hecho]Enlace al detalle del anuncio.
+- [Hecho] Mostrar si no hay anuncios con enlace a crear uno.
+- [Hecho] Enlace al detalle del anuncio.
 
-- Filtro de anuncios.
-  -- Filtrar por nombre.
-  -- Filtrar por compra, venta o todos.
+- [Hecho] Filtro de anuncios.
+  -- [Hecho] Filtrar por nombre.
+  -- [Hecho] Filtrar por compra, venta o todos.
 
 ## AdvertPage
 
