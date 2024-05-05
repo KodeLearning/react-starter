@@ -11,6 +11,10 @@ export const getAdvert = (advertId) => {
   return client.get(url)
 }
 
+export const createAdvert = (data) => {
+  return client.post(advertsUrl, data)
+}
+
 export const removeAdvert = (advertId) => {
   const url = `${advertsUrl}/${advertId}`
   return client.delete(url)

@@ -26,13 +26,13 @@
 
 ## NewAdvertPage
 
-- Inputs necesarios
-  -- Nombre *Requerido
-  -- Compra / Venta *Requerido
-  -- Tags *Requerido
-  -- Precio *Requerido
-  -- Foto \*Opcional
-- Redireccionar a la pagina del anuncio.
+[Hecho] - Inputs necesarios
+-- Nombre *Requerido
+-- Compra / Venta *Requerido
+-- Tags *Requerido
+-- Precio *Requerido
+-- Foto \*Opcional
+[Hecho] - Redireccionar a la pagina del anuncio.
 
 # Getting Started with Create React App
 
