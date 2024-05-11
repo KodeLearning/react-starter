@@ -20,13 +20,13 @@ export default function NewAdvertPage() {
   })
 
   const handleChange = (e) => {
-    handleSale()
-
     setFormValues((currentFormValues) => ({
       ...currentFormValues,
       [e.target.name]:
         e.target.name === 'tags'
           ? Array.from(e.target.selectedOptions, (option) => option.value)
+          : e.target.name === 'sale'
+          ? e.target.checked
           : e.target.value,
     }))
   }
@@ -49,14 +49,6 @@ export default function NewAdvertPage() {
       if (error.status === 401) {
         navigate('/login')
       }
-    }
-  }
-
-  const handleSale = () => {
-    if (cbSale.current.checked) {
-      cbSale.current.value = true
-    } else {
-      cbSale.current.value = false
     }
   }
 
