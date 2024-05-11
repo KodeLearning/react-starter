@@ -11,7 +11,6 @@ function AdvertPage() {
   const navigate = useNavigate()
 
   const [advert, setAdvert] = useState(null)
-  const [removeButton, setRemoveButton] = useState('Delete Advert')
   const [removeConfirmed, setRemoveConfirmed] = useState(false)
 
   useEffect(() => {
@@ -36,7 +35,6 @@ function AdvertPage() {
   }
 
   function handleRemoveConfirmation() {
-    setRemoveButton('Are you sure?')
     setRemoveConfirmed(true)
   }
 
@@ -64,7 +62,7 @@ function AdvertPage() {
           removeConfirmed ? handleRemoveAdvert : handleRemoveConfirmation
         }
       >
-        {removeButton}
+        {!removeConfirmed ? 'Remove' : 'Are you sure?'}
       </Button>
     </Layout>
   )
