@@ -116,8 +116,8 @@ function AdvertsPage() {
                     {advert.price}€
                   </div>
                   <div className={styles.tags}>
-                    {advert.tags.map((tag) => (
-                      <div>{tag}</div>
+                    {advert.tags.map((tag, index) => (
+                      <div key={index}>{tag}</div>
                     ))}
                   </div>
                 </div>
