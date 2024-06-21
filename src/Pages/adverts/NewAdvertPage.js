@@ -5,9 +5,12 @@ import { useNavigate } from 'react-router-dom'
 import { createAdvert } from './service'
 
 import styles from './NewAdvertPage.module.css'
+import { useDispatch } from 'react-redux'
+import { advertsCreated } from '../../store/actions'
 
 export default function NewAdvertPage() {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const cbSale = useRef(null)
   const photoRef = useRef(null)
   const [error, setError] = useState(null)
@@ -42,6 +45,7 @@ export default function NewAdvertPage() {
         tags,
         photo: photoRef.current.files[0],
       })
+      dispatch(advertsCreated(createdAdvert))
 
       navigate(`/adverts/${createdAdvert.id}`)
     } catch (error) {
