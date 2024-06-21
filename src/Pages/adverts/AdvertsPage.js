@@ -5,9 +5,13 @@ import { getAdverts } from './service'
 import Layout from '../../Components/layout/Layout'
 import { Link } from 'react-router-dom'
 import Placeholder from './components/Placeholder'
+import { useDispatch, useSelector } from 'react-redux'
+import { advertsLoaded } from '../../store/actions'
+import { getAllAdverts } from '../../store/selectors'
 
 function AdvertsPage() {
-  const [adverts, setAdverts] = useState([])
+  const dispatch = useDispatch()
+  const adverts = useSelector(getAllAdverts)
   const [filterValues, setFilterValues] = useState({
     nameFilter: '',
     typeFilter: '',
@@ -22,8 +26,10 @@ function AdvertsPage() {
   }
 
   useEffect(() => {
-    getAdverts().then((adverts) => setAdverts(adverts))
-  }, [])
+    getAdverts().then((adverts) => {
+      dispatch(advertsLoaded(adverts))
+    })
+  }, [dispatch])
 
   const { nameFilter, typeFilter } = filterValues
 
