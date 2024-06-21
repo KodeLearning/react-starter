@@ -4,19 +4,24 @@ import './index.css'
 import App from './App'
 import storage from './Utils/storage'
 import { setAuthorizationHeader } from './api/client'
-import { AuthContextProvider } from './Pages/auth/context'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, createBrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+
+import configureStore from './store/index'
 
 const accessToken = storage.get('auth')
 if (accessToken) setAuthorizationHeader(accessToken)
 
+const router = createBrowserRouter([{ path: '*', element: <App /> }])
+const store = configureStore({ auth: !!accessToken }, { router })
+
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AuthContextProvider isDefaultLogged={!!accessToken}>
+    <Provider store={store}>
+      <BrowserRouter>
         <App />
-      </AuthContextProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 )

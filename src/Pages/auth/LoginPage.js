@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useAuth } from './context'
 import { login } from './service'
 import Layout from '../../Components/layout/Layout'
 import Button from '../../Components/form/Button'
+import { useDispatch } from 'react-redux'
+import { authLogin } from '../../store/actions'
 
 export default function LoginPage() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { onLogin } = useAuth()
+  const dispatch = useDispatch()
 
   const [formValues, setFormValues] = useState({
     email: '',
@@ -41,7 +42,7 @@ export default function LoginPage() {
       )
       setIsLoading(false)
 
-      onLogin(true)
+      dispatch(authLogin())
       const to = location.state?.from || '/'
       navigate(to)
     } catch (error) {
