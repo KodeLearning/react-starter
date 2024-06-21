@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import {
   ADVERTS_CREATED,
   ADVERTS_LOADED,
@@ -31,20 +30,13 @@ export function auth(state = defaultState, action) {
 export function adverts(state = defaultState, action) {
   switch (action.type) {
     case ADVERTS_LOADED:
-      return {
-        ...state,
-        adverts: action.payload,
-      }
+      return action.payload
     case ADVERTS_CREATED:
       return {
         ...state,
-        adverts: [...state.adverts, action.payload],
+        adverts: [...state, action.payload],
       }
     default:
       return state
   }
 }
-
-const reducer = combineReducers({ auth, adverts })
-
-export default reducer
