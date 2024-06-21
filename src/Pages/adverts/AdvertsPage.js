@@ -6,7 +6,7 @@ import Layout from '../../Components/layout/Layout'
 import { Link } from 'react-router-dom'
 import Placeholder from './components/Placeholder'
 import { useDispatch, useSelector } from 'react-redux'
-import { advertsLoaded } from '../../store/actions'
+import { advertsLoaded, tagsLoaded } from '../../store/actions'
 import { getAllAdverts } from '../../store/selectors'
 
 function AdvertsPage() {
@@ -16,6 +16,7 @@ function AdvertsPage() {
     nameFilter: '',
     typeFilter: '',
   })
+  let tags = new Set()
   const advertItem = useRef(null)
 
   const handleChange = (e) => {
@@ -28,8 +29,10 @@ function AdvertsPage() {
   useEffect(() => {
     getAdverts().then((adverts) => {
       dispatch(advertsLoaded(adverts))
+      adverts.map((advert) => advert.tags.map((tag) => tags.add(tag)))
+      dispatch(tagsLoaded(Array.from(tags)))
     })
-  }, [dispatch])
+  }, [])
 
   const { nameFilter, typeFilter } = filterValues
 

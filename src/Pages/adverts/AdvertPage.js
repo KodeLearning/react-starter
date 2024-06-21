@@ -13,7 +13,7 @@ import { getAdvertById } from '../../store/selectors'
 function AdvertPage() {
   const { advertId } = useParams()
   const navigate = useNavigate()
-  const advert = useSelector((state) => getAdvertById(state, advertId))
+  const advert = useSelector(getAdvertById(advertId))
 
   console.log()
 

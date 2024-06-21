@@ -1,13 +1,15 @@
 import {
-  ADVERTS_CREATED,
-  ADVERTS_LOADED,
   AUTH_LOGIN,
   AUTH_LOGOUT,
+  ADVERTS_CREATED,
+  ADVERTS_LOADED,
+  TAGS_LOADED,
 } from './actionTypes'
 
 export const defaultState = {
   auth: false,
   adverts: [],
+  tags: [],
 }
 
 export function auth(state = defaultState, action) {
@@ -36,6 +38,15 @@ export function adverts(state = defaultState, action) {
         ...state,
         adverts: [...state, action.payload],
       }
+    default:
+      return state
+  }
+}
+
+export function tags(state = defaultState, action) {
+  switch (action.type) {
+    case TAGS_LOADED:
+      return action.payload
     default:
       return state
   }
