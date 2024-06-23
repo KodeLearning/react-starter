@@ -1,5 +1,3 @@
-import * as advertsService from '../Pages/adverts/service'
-import { login } from '../Pages/auth/service'
 import {
   AUTH_LOGIN_PENDING,
   AUTH_LOGIN_FULFILLED,
@@ -30,10 +28,10 @@ export const authLoginRejected = (error) => ({
 })
 
 export const authLogin = (credentials, rememberMe) => {
-  return async function (dispatch) {
+  return async function (dispatch, _getState, { services: { auth } }) {
     try {
       dispatch(authLoginPending())
-      await login(credentials, rememberMe)
+      await auth.login(credentials, rememberMe)
       dispatch(authLoginFulfilled())
     } catch (error) {
       dispatch(authLoginRejected(error))
@@ -59,7 +57,7 @@ export const advertsLoadedRejected = (error) => ({
 })
 
 export const loadAdverts = () => {
-  return async function (dispatch, getState) {
+  return async function (dispatch, getState, { services: { adverts } }) {
     let tags = new Set()
 
     if (areAdvertsLoaded(getState())) {
@@ -68,7 +66,7 @@ export const loadAdverts = () => {
 
     try {
       dispatch(advertsLoadedPending())
-      advertsService.getAdverts().then((adverts) => {
+      adverts.getAdverts().then((adverts) => {
         dispatch(advertsLoadedFulfilled(adverts))
         adverts.map((advert) => advert.tags.map((tag) => tags.add(tag)))
         dispatch(tagsLoaded(Array.from(tags)))
@@ -86,12 +84,12 @@ export const advertDetail = (advert) => ({
 })
 
 export const loadAdvert = (advertId) => {
-  return async function (dispatch, getState) {
+  return async function (dispatch, getState, { services: { adverts } }) {
     const state = getState()
     if (getAdvertById(advertId)(state)) {
       return
     }
-    const advert = await advertsService.getAdvert(advertId)
+    const advert = await adverts.getAdvert(advertId)
     console.log(advertDetail(advert))
     dispatch(advertDetail(advert))
   }
@@ -103,15 +101,15 @@ export const advertsCreated = (advert) => ({
 })
 
 export const createAdvert = (name, price, sale, tags, photo) => {
-  return async function (dispatch) {
-    const { id } = await advertsService.createAdvert({
+  return async function (dispatch, _getState, { services: { adverts } }) {
+    const { id } = await adverts.createAdvert({
       name,
       price,
       sale,
       tags,
       photo,
     })
-    const createdAdvert = await advertsService.getAdvert(id)
+    const createdAdvert = await adverts.getAdvert(id)
     dispatch(advertsCreated(createdAdvert))
 
     return createdAdvert
