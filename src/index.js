@@ -4,7 +4,7 @@ import './index.css'
 import App from './App'
 import storage from './Utils/storage'
 import { setAuthorizationHeader } from './api/client'
-import { BrowserRouter, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import configureStore from './store/index'
@@ -19,9 +19,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
 )

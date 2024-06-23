@@ -1,14 +1,12 @@
 import { useRef, useState } from 'react'
 import Layout from '../../Components/layout/Layout'
 import Button from '../../Components/form/Button'
-import { useNavigate } from 'react-router-dom'
 
 import styles from './NewAdvertPage.module.css'
 import { useDispatch } from 'react-redux'
 import { createAdvert } from '../../store/actions'
 
 export default function NewAdvertPage() {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const cbSale = useRef(null)
   const photoRef = useRef(null)
@@ -36,10 +34,7 @@ export default function NewAdvertPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const createdAdvert = await dispatch(
-      createAdvert(name, price, sale, tags, photoRef.current.files[0])
-    )
-    navigate(`/adverts/${createdAdvert.id}`)
+    dispatch(createAdvert(name, price, sale, tags, photoRef.current.files[0]))
   }
 
   const { name, price, sale, tags } = formValues

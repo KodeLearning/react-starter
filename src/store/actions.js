@@ -6,7 +6,9 @@ import {
   ADVERTS_LOADED_PENDING,
   ADVERTS_LOADED_FULFILLED,
   ADVERTS_LOADED_REJECTED,
-  ADVERTS_CREATED,
+  ADVERTS_CREATED_PENDING,
+  ADVERTS_CREATED_FULFILLED,
+  ADVERTS_CREATED_REJECTED,
   ADVERTS_DETAIL,
   TAGS_LOADED,
   UI_RESET_ERROR,
@@ -28,11 +30,14 @@ export const authLoginRejected = (error) => ({
 })
 
 export const authLogin = (credentials, rememberMe) => {
-  return async function (dispatch, _getState, { services: { auth } }) {
+  return async function (dispatch, _getState, { services: { auth }, router }) {
     try {
       dispatch(authLoginPending())
       await auth.login(credentials, rememberMe)
       dispatch(authLoginFulfilled())
+
+      const to = router.state.location.state?.from || '/'
+      router.navigate(to)
     } catch (error) {
       dispatch(authLoginRejected(error))
     }
@@ -95,13 +100,25 @@ export const loadAdvert = (advertId) => {
   }
 }
 
-export const advertsCreated = (advert) => ({
-  type: ADVERTS_CREATED,
+export const advertsCreatedPending = () => ({
+  type: ADVERTS_CREATED_PENDING,
+})
+export const advertsCreatedFulfilled = (advert) => ({
+  type: ADVERTS_CREATED_FULFILLED,
   payload: advert,
+})
+export const advertsCreatedRejected = (error) => ({
+  type: ADVERTS_CREATED_REJECTED,
+  payload: error,
+  error: true,
 })
 
 export const createAdvert = (name, price, sale, tags, photo) => {
-  return async function (dispatch, _getState, { services: { adverts } }) {
+  return async function (
+    dispatch,
+    _getState,
+    { services: { adverts }, router }
+  ) {
     const { id } = await adverts.createAdvert({
       name,
       price,
@@ -110,7 +127,7 @@ export const createAdvert = (name, price, sale, tags, photo) => {
       photo,
     })
     const createdAdvert = await adverts.getAdvert(id)
-    dispatch(advertsCreated(createdAdvert))
+    router.navigate(`/adverts/${createdAdvert.id}`)
 
     return createdAdvert
   }

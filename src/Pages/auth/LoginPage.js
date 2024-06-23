@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
 import Layout from '../../Components/layout/Layout'
 import Button from '../../Components/form/Button'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,8 +6,6 @@ import { authLogin, uiResetError } from '../../store/actions'
 import { getUi } from '../../store/selectors'
 
 export default function LoginPage() {
-  const location = useLocation()
-  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { pending: isLoading, error } = useSelector(getUi)
 
@@ -38,10 +35,7 @@ export default function LoginPage() {
         },
         rememberPassword
       )
-    ).then(() => {
-      const to = location.state?.from || '/'
-      navigate(to)
-    })
+    )
   }
 
   const resetError = () => dispatch(uiResetError())
