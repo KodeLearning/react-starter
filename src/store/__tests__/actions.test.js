@@ -1,5 +1,10 @@
 import { AUTH_LOGIN_PENDING } from '../actionTypes'
-import { authLogin, authLoginPending } from '../actions'
+import {
+  authLogin,
+  authLoginFulfilled,
+  authLoginPending,
+  authLoginRejected,
+} from '../actions'
 
 // SYNC
 describe('authLoginPending', () => {
@@ -17,7 +22,8 @@ describe('authLoginPending', () => {
 // ASYNC
 describe('authLogin', () => {
   const credentials = 'credentials'
-  const action = authLogin(credentials)
+  const rememberMe = true
+  const action = authLogin(credentials, rememberMe)
 
   const redirect = 'redirect'
   const dispatch = jest.fn()
@@ -30,10 +36,24 @@ describe('authLogin', () => {
   test('when login resolve should follow the flow', async () => {
     services.auth.login = jest.fn().mockResolvedValue()
 
-    action(dispatch, undefined, { services, router })
+    await action(dispatch, undefined, { services, router })
+
+    expect(dispatch).toHaveBeenCalledTimes(2)
+    expect(dispatch).toHaveBeenNthCalledWith(1, authLoginPending())
+    expect(services.auth.login).toHaveBeenCalledWith(credentials, rememberMe)
+    expect(dispatch).toHaveBeenNthCalledWith(2, authLoginFulfilled())
+    expect(router.navigate).toHaveBeenCalledWith(redirect)
   })
-  test('when login rejects should follow the error flow', () => {
+  test('when login rejects should follow the error flow', async () => {
     const error = new Error('Unauthorized')
     services.auth.login = jest.fn().mockRejectedValue(error)
+
+    await action(dispatch, undefined, { services, router })
+
+    expect(dispatch).toHaveBeenCalledTimes(2)
+    expect(dispatch).toHaveBeenNthCalledWith(1, authLoginPending())
+    expect(services.auth.login).toHaveBeenCalledWith(credentials, rememberMe)
+    expect(dispatch).toHaveBeenNthCalledWith(2, authLoginRejected(error))
+    expect(router.navigate).not.toHaveBeenCalledWith()
   })
 })
