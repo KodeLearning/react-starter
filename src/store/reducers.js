@@ -2,6 +2,7 @@ import {
   AUTH_LOGIN_FULFILLED,
   AUTH_LOGOUT,
   ADVERTS_CREATED,
+  ADVERTS_DETAIL,
   TAGS_LOADED,
   UI_RESET_ERROR,
   ADVERTS_LOADED_FULFILLED,
@@ -62,7 +63,9 @@ export function adverts(state = defaultState.adverts, action) {
     case ADVERTS_LOADED_FULFILLED:
       return { ...state, loaded: true, data: action.payload }
     case ADVERTS_CREATED:
-      return { ...state, data: [action.payload, ...state] }
+      return { ...state, data: [action.payload, ...state.data] }
+    case ADVERTS_DETAIL:
+      return { ...state, data: [action.payload] }
     default:
       return state
   }
