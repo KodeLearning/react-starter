@@ -1,23 +1,22 @@
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { login } from './service'
 import Layout from '../../Components/layout/Layout'
 import Button from '../../Components/form/Button'
-import { useDispatch } from 'react-redux'
-import { authLogin } from '../../store/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { authLogin, uiResetError } from '../../store/actions'
+import { getUi } from '../../store/selectors'
 
 export default function LoginPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { pending: isLoading, error } = useSelector(getUi)
 
   const [formValues, setFormValues] = useState({
     email: '',
     password: '',
     rememberMe: false,
   })
-  const [error, setError] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
 
   const handleChange = (event) => {
     setFormValues((currentFormValues) => ({
@@ -31,27 +30,21 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    try {
-      setIsLoading(true)
-      await login(
+    dispatch(
+      authLogin(
         {
           email,
           password,
         },
         rememberPassword
       )
-      setIsLoading(false)
-
-      dispatch(authLogin())
+    ).then(() => {
       const to = location.state?.from || '/'
       navigate(to)
-    } catch (error) {
-      setIsLoading(false)
-      setError(error)
-    }
+    })
   }
 
-  const resetError = () => setError(null)
+  const resetError = () => dispatch(uiResetError())
 
   const { email, password, rememberPassword } = formValues
   const emptyForm = !email || !password || isLoading
